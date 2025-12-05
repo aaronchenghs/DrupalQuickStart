@@ -27,7 +27,9 @@ No local PHP, Composer, Drush, or database installation is required.
 git clone https://github.com/<your-org>/DrupalQuickSetup.git
 cd DrupalQuickSetup
 ```
-### 2. Start the containers
+### 2. Make sure Docker Desktop is running
+
+### 3. Start the containers
 ```bash
 docker compose up -d
 ```
