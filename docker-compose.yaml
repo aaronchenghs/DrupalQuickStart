@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: drupal
+      POSTGRES_USER: drupal
+      POSTGRES_PASSWORD: drupal
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  drupal:
+    image: drupal:10-apache
+    depends_on:
+      - db
+    ports:
+      - "8080:80"
+    environment:
+      DRUPAL_DB_HOST: db
+      DRUPAL_DB_NAME: drupal
+      DRUPAL_DB_USER: drupal
+      DRUPAL_DB_PASSWORD: drupal
+
+    volumes:
+      - drupal_data:/var/www/html
+      - ./drupal-config/sites/default/settings.php:/var/www/html/sites/default/settings.php
+      - ./drupal-config/sites/default/services.yml:/var/www/html/sites/default/services.yml
+      - ./drupal-files:/var/www/html/sites/default/files
+
+volumes:
+  db_data:
+  drupal_data:
